@@ -24,6 +24,10 @@ public class Pricefactory {
         priceMap.put("Business", new Business(flightMap).getprice());
     }
 
+    public Map<String, List<String[]>> getPriceMap() {
+        return priceMap;
+    }
+
     public int getPrice(String category, String flightNumber) {
         for(String key : priceMap.keySet()) {
             if (category.equals(key)) {

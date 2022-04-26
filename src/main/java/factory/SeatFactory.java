@@ -23,6 +23,10 @@ public class SeatFactory {
         seatMap.put("Business", new Business(flightMap).getseats());
     }
 
+    public Map<String, List<String[]>> getSeatMap() {
+        return seatMap;
+    }
+
     public boolean modifySeat(String category, String takenseat, String flightNum) {
         for(String key : seatMap.keySet()) {
             if(key.equals(category)) {
