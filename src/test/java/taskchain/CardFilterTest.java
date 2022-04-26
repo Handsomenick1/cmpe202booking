@@ -1,14 +1,7 @@
 package taskchain;
 
-import classes.Flight;
-import classes.GenerateFlightList;
-import classes.GenerateOrderList;
-import classes.Order;
-import com.opencsv.exceptions.CsvValidationException;
-import constants.CSVHandler;
-import org.junit.Test;
-import services.FlightService;
-import services.PaymentService;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -16,7 +9,15 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import static org.junit.Assert.*;
+import com.opencsv.exceptions.CsvValidationException;
+
+import org.junit.Test;
+
+import classes.Flight;
+import classes.Order;
+import constants.CSVHandler;
+import services.FlightService;
+import services.PaymentService;
 
 public class CardFilterTest {
 

@@ -1,28 +1,36 @@
 package test;
 
-import classes.Flight;
-import classes.GenerateFlightList;
-import classes.GenerateOrderList;
-import classes.Order;
-import com.opencsv.exceptions.CsvValidationException;
-import constants.CSVHandler;
-import services.FlightService;
-import services.PaymentService;
-import taskchain.*;
-
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import com.opencsv.exceptions.CsvValidationException;
+
+import classes.Flight;
+import classes.GenerateFlightList;
+import classes.GenerateOrderList;
+import classes.Order;
+import constants.CSVHandler;
+import services.FlightService;
+import services.PaymentService;
+import taskchain.AbstractBookingFilter;
+import taskchain.CardFilter;
+import taskchain.FlightFilter;
+import taskchain.GenerateResFilter;
+import taskchain.ModifySeatFilter;
+import taskchain.SeatFilter;
+import taskchain.bookingList;
+
 public class RunClient {
     public static void main(String[] args) throws IOException, CsvValidationException {
         Map<String, List<Flight>> flightMap = new HashMap<>();
         CSVHandler csvHandler = new CSVHandler(new String[]{"Booking name", " flight number", "Category", " number of seats booked", " total price"});
-
+        
+        //"/Users/fuyuzhang/Documents/sjsu-2022spring/cmpe-202/projectdoc/flights.csv"
         // read flight data
-        List<String[]> flightsdata = csvHandler.readData("/Users/fuyuzhang/Documents/sjsu-2022spring/cmpe-202/projectdoc/flights.csv");
+        List<String[]> flightsdata = csvHandler.readData(args[0]);
         GenerateFlightList generateFlightList = new GenerateFlightList(flightsdata);
         generateFlightList.generateList();
 
@@ -34,9 +42,10 @@ public class RunClient {
             }
             flightMap.get(key).add(flight1);
         }
-
+        
+        ///Users/fuyuzhang/Documents/sjsu-2022spring/cmpe-202/projectdoc/Sample.csv
         // read order data
-        List<String[]> orders = csvHandler.readData("/Users/fuyuzhang/Documents/sjsu-2022spring/cmpe-202/projectdoc/Sample.csv");
+        List<String[]> orders = csvHandler.readData(args[1]);
 
         GenerateOrderList generateOrderList = new GenerateOrderList(orders);
         List<Order> orderList = generateOrderList.generateList();
