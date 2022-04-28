@@ -25,12 +25,11 @@ import taskchain.bookingList;
 
 public class RunClient {
     public static void main(String[] args) throws IOException, CsvValidationException {
-        Map<String, List<Flight>> flightMap = new HashMap<>();
         CSVHandler csvHandler = new CSVHandler(new String[]{"Booking name", " flight number", "Category", " number of seats booked", " total price"});
-        
-        //"/Users/fuyuzhang/Documents/sjsu-2022spring/cmpe-202/projectdoc/flights.csv"
+
+        Map<String, List<Flight>> flightMap = new HashMap<>();
         // read flight data
-        List<String[]> flightsdata = csvHandler.readData(args[0]);
+        List<String[]> flightsdata = csvHandler.readData(args[1]);
         GenerateFlightList generateFlightList = new GenerateFlightList(flightsdata);
         generateFlightList.generateList();
 
@@ -43,9 +42,8 @@ public class RunClient {
             flightMap.get(key).add(flight1);
         }
         
-        ///Users/fuyuzhang/Documents/sjsu-2022spring/cmpe-202/projectdoc/Sample.csv
         // read order data
-        List<String[]> orders = csvHandler.readData(args[1]);
+        List<String[]> orders = csvHandler.readData(args[0]);
 
         GenerateOrderList generateOrderList = new GenerateOrderList(orders);
         List<Order> orderList = generateOrderList.generateList();
