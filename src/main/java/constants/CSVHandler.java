@@ -13,21 +13,21 @@ import com.opencsv.CSVWriter;
 import com.opencsv.exceptions.CsvValidationException;
 
 public class CSVHandler {
-    private final String ORDER =  "order";
-    private final String FILEPATH = System.getProperty("user.dir") + "/" + ORDER;
+    private final String FILEPATH;
     private List<String[]> list;
     private final String fileName;
 
-    public CSVHandler(String[] header) {
+    public CSVHandler(String[] header, String filepath) {
         this.list = new ArrayList<>();
         this.list.add(header);
+        this.FILEPATH = filepath;
         fileName = "output.csv";
     }
-    public String createFile() throws IOException {
-        try (CSVWriter writer = new CSVWriter(new FileWriter(FILEPATH+"/"+fileName))) {
+    public String createFile(String path) throws IOException {
+        try (CSVWriter writer = new CSVWriter(new FileWriter(path))) {
             writer.writeAll(list);
         }
-        return FILEPATH + "/" + fileName;
+        return path;
     }
 
     public void insertData(String input) throws IOException {

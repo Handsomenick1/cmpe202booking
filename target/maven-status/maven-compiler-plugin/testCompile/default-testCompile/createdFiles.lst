@@ -1,0 +1,10 @@
+taskchain/ModifySeatFilterTest.class
+services/FlightServiceTest.class
+taskchain/FlightFilterTest.class
+taskchain/CardFilterTest.class
+factory/SeatFactoryTest.class
+factory/PricefactoryTest.class
+taskchain/SeatFilterTest.class
+taskchain/GenerateResFilterTest.class
+factory/CardfactoryTest.class
+services/PaymentServiceTest.class

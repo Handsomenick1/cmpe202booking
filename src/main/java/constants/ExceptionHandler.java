@@ -6,17 +6,17 @@ import java.io.FileWriter;
 import java.io.IOException;
 
 public class ExceptionHandler {
-    private static final String EXCEPTION =  "exception";
-    private static final String FILEPATH = System.getProperty("user.dir") + "/" + EXCEPTION + "/";
-    private static final String FILENAME = FILEPATH + "output.txt";
-    public ExceptionHandler() {
-
+    private final String FILEPATH;
+    private final String FILENAME;
+    public ExceptionHandler(String path) {
+        this.FILEPATH = path;
+        this.FILENAME = FILEPATH + "/" + "output.txt";
     }
-    public static String getFile() {
+    public  String getFile() {
         return FILENAME;
     }
 
-    public static String createFile() {
+    public String createFile() {
         try {
             File myObj = new File(FILENAME);
             if (myObj.exists() && !myObj.isDirectory()) {
@@ -31,14 +31,14 @@ public class ExceptionHandler {
         return FILENAME;
     }
 
-    public static boolean writeFile(String content) {
+    public  boolean writeFile(String content) {
         try {
             FileWriter myWriter = new FileWriter(FILENAME, true);
             BufferedWriter bw = new BufferedWriter(myWriter);
             bw.write(content);
             bw.newLine();
             bw.close();
-            System.out.println("Successfully wrote to the file.");
+            System.out.println("Successfully wrote " + content + " to the file.");
         } catch (IOException e) {
             System.out.println("An error occurred.");
             e.printStackTrace();

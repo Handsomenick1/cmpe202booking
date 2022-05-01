@@ -3,20 +3,22 @@ package taskchain;
 import constants.ExceptionHandler;
 
 public class SeatFilter extends AbstractBookingFilter{
-    public SeatFilter(AbstractBookingFilter nextBookingFilter) {
+    private ExceptionHandler exceptionHandler;
+    public SeatFilter(AbstractBookingFilter nextBookingFilter, ExceptionHandler exceptionHandler) {
         super(nextBookingFilter);
+        this.exceptionHandler = exceptionHandler;
     }
 
     @Override
     public boolean validate(bookingList bookingList) {
         if (bookingList.isSeatEnough()) {
-            System.out.println("seat good");
+            System.out.println("Seat Available");
             return true;
         }
         String bookname = bookingList.getBookName();
         String content = "Please enter correct booking details for " + bookname + " : seat is not enough";
-        ExceptionHandler.createFile();
-        ExceptionHandler.writeFile(content);
+        exceptionHandler.createFile();
+        exceptionHandler.writeFile(content);
         return false;
     }
 }

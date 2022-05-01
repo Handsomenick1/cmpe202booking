@@ -13,6 +13,7 @@ import classes.GenerateFlightList;
 import classes.GenerateOrderList;
 import classes.Order;
 import constants.CSVHandler;
+import constants.ExceptionHandler;
 import services.FlightService;
 import services.PaymentService;
 import taskchain.AbstractBookingFilter;
@@ -25,7 +26,8 @@ import taskchain.bookingList;
 
 public class RunClient {
     public static void main(String[] args) throws IOException, CsvValidationException {
-        CSVHandler csvHandler = new CSVHandler(new String[]{"Booking name", " flight number", "Category", " number of seats booked", " total price"});
+        CSVHandler csvHandler = new CSVHandler(new String[]{"Booking name", " flight number", "Category", " number of seats booked", " total price"}, args[2]);
+        ExceptionHandler exceptionHandler = new ExceptionHandler(args[3]);
 
         Map<String, List<Flight>> flightMap = new HashMap<>();
         // read flight data
@@ -60,9 +62,9 @@ public class RunClient {
 
             AbstractBookingFilter generateresFilter = new GenerateResFilter(null);
             AbstractBookingFilter modifyseatFilter = new ModifySeatFilter(generateresFilter);
-            AbstractBookingFilter cardCheck = new CardFilter(modifyseatFilter);
-            AbstractBookingFilter seatCheck = new SeatFilter(cardCheck);
-            AbstractBookingFilter flightCheck = new FlightFilter(seatCheck);
+            AbstractBookingFilter cardCheck = new CardFilter(modifyseatFilter, exceptionHandler);
+            AbstractBookingFilter seatCheck = new SeatFilter(cardCheck, exceptionHandler);
+            AbstractBookingFilter flightCheck = new FlightFilter(seatCheck, exceptionHandler);
             flightCheck.doFilter(bookingList);
 
             System.out.println("--------------------------------------------");

@@ -19,7 +19,7 @@ public class ModifySeatFilterTest {
     @Test
     public void validate() {
         Map<String, List<Flight>> flightMap = new HashMap<>();
-        CSVHandler csvHandler = new CSVHandler(new String[]{"Booking name", " flight number", "Category", " number of seats booked", " total price"});
+        CSVHandler csvHandler = new CSVHandler(new String[]{"Booking name", " flight number", "Category", " number of seats booked", " total price"}, "/Users/fuyuzhang/Documents/sjsu-2022spring/cmpe-202/projectdoc");
 
         Flight flight = new Flight("Business", "BY110", "5", "2000", "Seattle", "San jose");
         Order order = new Order("Nick", "BY110", "Business", "2", "5410000000000000");

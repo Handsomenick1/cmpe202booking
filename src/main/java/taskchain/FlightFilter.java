@@ -3,20 +3,24 @@ package taskchain;
 import constants.ExceptionHandler;
 
 public class FlightFilter extends AbstractBookingFilter{
-    public FlightFilter(AbstractBookingFilter nextBookingFilter) {
+    private ExceptionHandler exceptionHandler;
+
+    public FlightFilter(AbstractBookingFilter nextBookingFilter, ExceptionHandler exceptionHandler) {
         super(nextBookingFilter);
+        this.exceptionHandler = exceptionHandler;
     }
 
     @Override
     public boolean validate(bookingList bookingList) {
         if (bookingList.isFlightExist()){
-            System.out.println("flight good");
+            System.out.println("Flight Available");
             return true;
         }
+        // Flight is not available
         String bookname = bookingList.getBookName();
         String content = "Please enter correct booking details for " + bookname + " : No such flight number";
-        ExceptionHandler.createFile();
-        ExceptionHandler.writeFile(content);
+        exceptionHandler.createFile();
+        exceptionHandler.writeFile(content);
         return false;
     }
 }
