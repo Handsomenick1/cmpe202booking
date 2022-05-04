@@ -4,6 +4,7 @@ import classes.Flight;
 import classes.Order;
 import constants.CSVHandler;
 import constants.ExceptionHandler;
+import org.junit.Before;
 import org.junit.Test;
 import services.FlightService;
 import services.PaymentService;
@@ -16,12 +17,17 @@ import java.util.Map;
 import static org.junit.Assert.*;
 
 public class SeatFilterTest {
+    private String workingDir;
 
+    @Before
+    public void init() {
+        this.workingDir = System.getProperty("user.dir") + "/src" + "/test/java/file";
+    }
     @Test
     public void validateHappy() {
         Map<String, List<Flight>> flightMap = new HashMap<>();
-        CSVHandler csvHandler = new CSVHandler(new String[]{"Booking name", " flight number", "Category", " number of seats booked", " total price"}, "/Users/fuyuzhang/Documents/sjsu-2022spring/cmpe-202/projectdoc");
-        ExceptionHandler exceptionHandler = new ExceptionHandler("/Users/fuyuzhang/Documents/sjsu-2022spring/cmpe-202/projectdoc");
+        CSVHandler csvHandler = new CSVHandler(new String[]{"Booking name", " flight number", "Category", " number of seats booked", " total price"}, this.workingDir);
+        ExceptionHandler exceptionHandler = new ExceptionHandler(this.workingDir);
 
         Flight flight = new Flight("Business", "BY110", "5", "2000", "Seattle", "San jose");
         Order order = new Order("Nick", "BY110", "Business", "2", "5410000000000000");
@@ -38,8 +44,8 @@ public class SeatFilterTest {
     @Test
     public void validateFailed() {
         Map<String, List<Flight>> flightMap = new HashMap<>();
-        CSVHandler csvHandler = new CSVHandler(new String[]{"Booking name", " flight number", "Category", " number of seats booked", " total price"}, "/Users/fuyuzhang/Documents/sjsu-2022spring/cmpe-202/projectdoc");
-        ExceptionHandler exceptionHandler = new ExceptionHandler("/Users/fuyuzhang/Documents/sjsu-2022spring/cmpe-202/projectdoc");
+        CSVHandler csvHandler = new CSVHandler(new String[]{"Booking name", " flight number", "Category", " number of seats booked", " total price"}, this.workingDir);
+        ExceptionHandler exceptionHandler = new ExceptionHandler(this.workingDir);
 
         Flight flight = new Flight("Business", "BY110", "1", "2000", "Seattle", "San jose");
         Order order = new Order("Nick", "BY110", "Business", "2", "5410000000000000");

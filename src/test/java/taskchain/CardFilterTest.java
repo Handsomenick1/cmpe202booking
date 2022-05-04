@@ -12,6 +12,7 @@ import java.util.Map;
 import com.opencsv.exceptions.CsvValidationException;
 
 import constants.ExceptionHandler;
+import org.junit.Before;
 import org.junit.Test;
 
 import classes.Flight;
@@ -21,12 +22,17 @@ import services.FlightService;
 import services.PaymentService;
 
 public class CardFilterTest {
+    private String workingDir;
 
+    @Before
+    public void init() {
+        this.workingDir = System.getProperty("user.dir") + "/src" + "/test/java/file";
+    }
     @Test
     public void validateHappy() throws IOException, CsvValidationException {
         Map<String, List<Flight>> flightMap = new HashMap<>();
-        CSVHandler csvHandler = new CSVHandler(new String[]{"Booking name", " flight number", "Category", " number of seats booked", " total price"}, "/Users/fuyuzhang/Documents/sjsu-2022spring/cmpe-202/projectdoc");
-        ExceptionHandler exceptionHandler = new ExceptionHandler("/Users/fuyuzhang/Documents/sjsu-2022spring/cmpe-202/projectdoc");
+        CSVHandler csvHandler = new CSVHandler(new String[]{"Booking name", " flight number", "Category", " number of seats booked", " total price"}, this.workingDir);
+        ExceptionHandler exceptionHandler = new ExceptionHandler(this.workingDir);
         Flight flight = new Flight("Business", "BY110", "5", "2000", "Seattle", "San jose");
         Order order = new Order("Nick", "BY110", "Business", "2", "5410000000000000");
         flightMap.put(flight.getFlightNumber(), new ArrayList<>());
@@ -43,8 +49,8 @@ public class CardFilterTest {
     @Test
     public void validateFailed() throws IOException, CsvValidationException {
         Map<String, List<Flight>> flightMap = new HashMap<>();
-        CSVHandler csvHandler = new CSVHandler(new String[]{"Booking name", " flight number", "Category", " number of seats booked", " total price"}, "/Users/fuyuzhang/Documents/sjsu-2022spring/cmpe-202/projectdoc");
-        ExceptionHandler exceptionHandler = new ExceptionHandler("/Users/fuyuzhang/Documents/sjsu-2022spring/cmpe-202/projectdoc");
+        CSVHandler csvHandler = new CSVHandler(new String[]{"Booking name", " flight number", "Category", " number of seats booked", " total price"}, this.workingDir);
+        ExceptionHandler exceptionHandler = new ExceptionHandler(this.workingDir);
         Flight flight = new Flight("Business", "BY110", "5", "2000", "Seattle", "San jose");
         Order order = new Order("Nick", "BY110", "Business", "2", "123123123");
         flightMap.put(flight.getFlightNumber(), new ArrayList<>());
